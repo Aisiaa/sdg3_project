@@ -1,0 +1,259 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8"/><meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>Pembuatan Prototipe — MindSDG3</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;1,400&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet"/>
+<style>
+:root{--pink-50:#fff0f6;--pink-100:#ffe0ee;--pink-200:#ffc2d9;--pink-300:#ff99be;--pink-400:#ff6b9d;--pink-500:#e84d8a;--pink-600:#c4306e;--blush:#fde8f0;--cream:#fffaf8;--text-dark:#2d1b2e;--text-mid:#6b4b6b;--text-light:#a07090;}
+*{margin:0;padding:0;box-sizing:border-box;}
+body{font-family:'DM Sans',sans-serif;background:var(--cream);color:var(--text-dark);}
+nav{position:fixed;top:0;width:100%;z-index:100;background:rgba(255,240,246,.9);backdrop-filter:blur(14px);border-bottom:1px solid var(--pink-100);padding:0 5%;display:flex;align-items:center;justify-content:space-between;height:64px;}
+.nav-logo{font-family:'Playfair Display',serif;font-size:1.3rem;color:var(--pink-500);text-decoration:none;}
+.back{display:inline-flex;align-items:center;gap:6px;color:var(--pink-500);font-size:.85rem;font-weight:600;text-decoration:none;padding:7px 16px;border-radius:999px;border:1.5px solid var(--pink-200);transition:all .2s;}
+.back:hover{background:var(--pink-50);}
+.hero{min-height:42vh;display:flex;align-items:center;justify-content:center;text-align:center;padding:100px 5% 50px;background:radial-gradient(ellipse 80% 60% at 50% 0%,rgba(255,154,195,.3) 0%,transparent 70%),var(--cream);}
+.badge{display:inline-block;background:var(--pink-100);color:var(--pink-600);font-size:.72rem;font-weight:600;letter-spacing:2px;text-transform:uppercase;padding:5px 16px;border-radius:999px;margin-bottom:1rem;}
+h1{font-family:'Playfair Display',serif;font-size:clamp(2rem,4.5vw,3.4rem);line-height:1.15;margin-bottom:1rem;}
+h1 em{color:var(--pink-500);font-style:italic;}
+.sub{font-size:1rem;color:var(--text-mid);max-width:600px;margin:0 auto;line-height:1.7;}
+.content{max-width:1000px;margin:0 auto;padding:50px 5% 80px;}
+.slabel{font-size:.72rem;font-weight:600;letter-spacing:2.5px;text-transform:uppercase;color:var(--pink-400);margin-bottom:.5rem;}
+h2{font-family:'Playfair Display',serif;font-size:1.85rem;margin-bottom:1rem;}
+h3{font-family:'Playfair Display',serif;font-size:1.25rem;margin:1.6rem 0 .8rem;}
+.div{width:48px;height:3px;background:linear-gradient(90deg,var(--pink-400),var(--pink-200));border-radius:2px;margin:.8rem 0 1.6rem;}
+p{font-size:.93rem;color:var(--text-mid);line-height:1.75;margin-bottom:1rem;}
+
+/* Lean Canvas Grid */
+.lean-canvas{display:grid;grid-template-columns:repeat(5,1fr);grid-template-rows:auto auto auto;gap:8px;margin:1.5rem 0;}
+.lc-cell{border-radius:14px;padding:16px;border:1.5px solid var(--pink-200);background:white;min-height:120px;}
+.lc-label{font-size:.7rem;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;color:var(--pink-500);margin-bottom:8px;}
+.lc-sub{font-size:.7rem;color:var(--text-light);font-style:italic;margin-bottom:6px;}
+.lc-cell ul{padding-left:1.05rem;}
+.lc-cell li{font-size:.8rem;color:var(--text-dark);line-height:1.55;margin-bottom:.3rem;}
+.lc-cell p{font-size:.8rem;margin:0;color:var(--text-dark);}
+
+.lc-problem{grid-column:1/3;grid-row:1/3;background:var(--pink-50);}
+.lc-solution{grid-column:3/4;grid-row:1/2;background:#e8f5e9;border-color:#a3d9b1;}
+.lc-uvp{grid-column:4/5;grid-row:1/3;background:#fff8e8;border-color:#f6d860;}
+.lc-advantage{grid-column:5/6;grid-row:1/2;background:#e8f0fe;border-color:#93c5fd;}
+.lc-segment{grid-column:5/6;grid-row:2/3;background:var(--blush);}
+.lc-metrics{grid-column:3/4;grid-row:2/3;background:#fde8e8;border-color:#f5a0a0;}
+.lc-cost{grid-column:1/3;grid-row:3/4;background:var(--pink-50);}
+.lc-revenue{grid-column:3/6;grid-row:3/4;background:#e8f5e9;border-color:#a3d9b1;}
+
+@media(max-width:900px){
+  .lean-canvas{grid-template-columns:1fr 1fr;}
+  .lc-problem,.lc-solution,.lc-uvp,.lc-advantage,.lc-segment,.lc-metrics,.lc-cost,.lc-revenue{grid-column:auto;grid-row:auto;}
+}
+
+.steps{display:flex;flex-direction:column;gap:14px;margin:1.5rem 0;}
+.step{display:flex;align-items:flex-start;gap:18px;background:white;border-radius:16px;padding:20px;border:1px solid var(--pink-100);}
+.step-num{background:var(--pink-500);color:white;font-weight:700;font-size:.85rem;width:32px;height:32px;border-radius:50%;display:flex;align-items:center;justify-content:center;flex-shrink:0;}
+.step-title{font-weight:600;color:var(--text-dark);margin-bottom:4px;font-size:.92rem;}
+.step-desc{font-size:.84rem;color:var(--text-mid);line-height:1.6;}
+
+.feature-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:14px;margin:1.5rem 0;}
+.feature-card{background:white;border:1px solid var(--pink-100);border-radius:16px;padding:20px;text-align:center;}
+.feature-icon{font-size:2rem;margin-bottom:8px;}
+.feature-title{font-weight:700;font-size:.9rem;margin-bottom:6px;color:var(--text-dark);}
+.feature-desc{font-size:.8rem;color:var(--text-mid);line-height:1.55;}
+
+.wireframe{background:white;border:2px dashed var(--pink-200);border-radius:20px;padding:28px;margin:1.5rem 0;}
+.wf-screen{background:var(--pink-50);border-radius:12px;padding:16px;margin-bottom:12px;}
+.wf-screen-title{font-size:.78rem;font-weight:700;color:var(--pink-600);margin-bottom:8px;}
+.wf-bar{height:10px;background:var(--pink-200);border-radius:6px;margin-bottom:6px;}
+.wf-btn{display:inline-block;background:var(--pink-400);color:white;font-size:.72rem;padding:4px 14px;border-radius:999px;margin-top:6px;}
+
+footer{background:var(--text-dark);color:rgba(255,255,255,.5);text-align:center;padding:28px 5%;font-size:.8rem;}
+footer span{color:#ff99be;}
+</style>
+</head>
+<body>
+<nav>
+  <a class="nav-logo" href="index.html">🧠 MindSDG3</a>
+  <a class="back" href="index.html">← Kembali</a>
+</nav>
+
+<div class="hero">
+  <div>
+    <div class="badge">Tahap 3 · Prototyping</div>
+    <h1>Pembuatan <em>Prototipe</em></h1>
+    <p class="sub">Memperjelas model bisnis melalui Lean Canvas dan merancang prototipe awal platform skrining mandiri & konsultasi anonim untuk kesehatan mental mahasiswa.</p>
+  </div>
+</div>
+
+<div class="content">
+
+  <div class="slabel">Model Bisnis</div>
+  <h2>Lean Canvas</h2>
+  <div class="div"></div>
+  <p>Lean Canvas digunakan untuk memperjelas pemikiran tentang masalah yang ditetapkan dan solusi yang diusulkan — platform digital skrining mandiri dan konsultasi anonim untuk kesehatan mental mahasiswa.</p>
+
+  <div class="lean-canvas">
+    <div class="lc-cell lc-problem">
+      <div class="lc-label">1 · Masalah</div>
+      <ul>
+        <li>Mahasiswa tidak tahu harus ke mana saat stres/cemas</li>
+        <li>Akses konselor/psikolog sulit & berbayar mahal</li>
+        <li>Stigma membuat mahasiswa enggan mencari bantuan profesional</li>
+        <li>Belum ada alat skrining mandiri yang praktis</li>
+      </ul>
+      <div class="lc-sub" style="margin-top:8px;">Alternatif solusi yang sudah ada:</div>
+      <ul>
+        <li>Riliv (konseling chat berbayar)</li>
+        <li>Halodoc (telemedicine umum)</li>
+        <li>Puskesmas (gratis tapi terbatas)</li>
+      </ul>
+    </div>
+
+    <div class="lc-cell lc-solution">
+      <div class="lc-label">Solusi yang Diajukan</div>
+      <ul>
+        <li>Skrining mandiri kondisi mental (kuesioner singkat + hasil instan)</li>
+        <li>Konsultasi anonim via form + kode unik balasan</li>
+        <li>Direktori konselor kampus (jadwal & spesialisasi)</li>
+      </ul>
+    </div>
+
+    <div class="lc-cell lc-uvp">
+      <div class="lc-label">3 · Keunikan Ide</div>
+      <div class="lc-sub">Konsep tingkat tinggi</div>
+      <ul>
+        <li>"Cek kesehatan mentalmu, anonim & tanpa biaya — langsung dari browser"</li>
+        <li>Kombinasi skrining + konsultasi anonim + direktori konselor kampus dalam satu platform sederhana</li>
+        <li>Tidak perlu login/daftar untuk skrining mandiri</li>
+        <li>Dirancang ringan untuk koneksi internet terbatas</li>
+      </ul>
+    </div>
+
+    <div class="lc-cell lc-advantage">
+      <div class="lc-label">Unfair Advantage</div>
+      <ul>
+        <li>Terintegrasi langsung dengan konselor kampus (bukan psikolog umum berbayar)</li>
+        <li>Gratis & anonim — mengurangi hambatan stigma dibanding platform komersial</li>
+      </ul>
+    </div>
+
+    <div class="lc-cell lc-segment">
+      <div class="lc-label">2 · Segmentasi Pengguna</div>
+      <div class="lc-sub">Early adopters</div>
+      <ul>
+        <li>Mahasiswa aktif semester awal–akhir</li>
+        <li>Mahasiswa yang sedang skripsi/TA</li>
+        <li>Mahasiswa yang butuh tempat curhat/bantuan</li>
+      </ul>
+    </div>
+
+    <div class="lc-cell lc-metrics">
+      <div class="lc-label">Key Metrics</div>
+      <div class="lc-sub">Indikator sukses</div>
+      <ul>
+        <li>Jumlah pengguna yang menyelesaikan skrining mandiri</li>
+        <li>Jumlah form konsultasi anonim yang terkirim & direspons</li>
+        <li>Jumlah klik ke direktori konselor kampus</li>
+        <li>Tingkat kepuasan pengguna (survei feedback)</li>
+      </ul>
+    </div>
+
+    <div class="lc-cell lc-cost">
+      <div class="lc-label">Perkiraan Biaya</div>
+      <ul>
+        <li>Hosting & domain website (biaya rendah, statis HTML/CSS/JS)</li>
+        <li>Pengembangan & pemeliharaan platform oleh tim mahasiswa</li>
+        <li>Koordinasi dengan konselor kampus (tanpa biaya tambahan, kerja sama institusi)</li>
+      </ul>
+    </div>
+
+    <div class="lc-cell lc-revenue">
+      <div class="lc-label">Channels & Perkiraan Pendapatan</div>
+      <p style="margin-bottom:6px;"><strong>Channels (cara mengomunikasikan solusi):</strong> Sosialisasi melalui media sosial kampus, organisasi mahasiswa, dosen pembimbing akademik, dan poster/QR code di lingkungan kampus.</p>
+      <p style="margin:0;"><strong>Pendapatan:</strong> Platform ini bersifat non-komersial (layanan kesejahteraan mahasiswa), sehingga tidak ada model pendapatan langsung — didanai melalui kerja sama dengan pihak kampus/lembaga kemahasiswaan.</p>
+    </div>
+  </div>
+
+  <!-- PROSES -->
+  <div class="slabel" style="margin-top:2.5rem;">Proses Pembuatan</div>
+  <h2>Dari Lean Canvas ke Prototipe</h2>
+  <div class="div"></div>
+  <div class="steps">
+    <div class="step">
+      <div class="step-num">1</div>
+      <div><div class="step-title">Menentukan Fitur Utama</div><div class="step-desc">Berdasarkan Starburst dan Lean Canvas, tiga fitur inti ditetapkan: skrining mandiri, konsultasi anonim, dan direktori konselor kampus.</div></div>
+    </div>
+    <div class="step">
+      <div class="step-num">2</div>
+      <div><div class="step-title">Membuat Wireframe</div><div class="step-desc">Sketsa layout halaman skrining, form curhat anonim, dan daftar konselor — mengikuti prinsip "Less Of: Tampilan Rumit" dari retrospektif.</div></div>
+    </div>
+    <div class="step">
+      <div class="step-num">3</div>
+      <div><div class="step-title">Memilih Estetika Visual</div><div class="step-desc">Palet warna pink soft dipilih agar tampilan terasa hangat, ramah, dan tidak menakutkan — penting untuk topik kesehatan mental yang sensitif.</div></div>
+    </div>
+    <div class="step">
+      <div class="step-num">4</div>
+      <div><div class="step-title">Membangun dengan HTML, CSS & JS</div><div class="step-desc">Mengkodekan website menggunakan HTML5, CSS3, dan JavaScript vanilla — sesuai dengan prinsip "Akses Ringan/Low Data" agar tetap lancar di koneksi lemah.</div></div>
+    </div>
+    <div class="step">
+      <div class="step-num">5</div>
+      <div><div class="step-title">Review Internal</div><div class="step-desc">Tim meninjau prototipe sebelum diuji oleh pengguna eksternal (mahasiswa), memastikan alur "Start Doing: Kerjasama Kampus & Komunitas" dapat diterapkan.</div></div>
+    </div>
+  </div>
+
+  <!-- FITUR -->
+  <div class="slabel" style="margin-top:2.5rem;">Fitur Prototipe</div>
+  <h2>3 Fitur Utama Platform</h2>
+  <div class="div"></div>
+  <div class="feature-grid">
+    <div class="feature-card">
+      <div class="feature-icon">📝</div>
+      <div class="feature-title">Cek Kondisi Mental</div>
+      <div class="feature-desc">Skrining mandiri tanpa login — jawab pertanyaan singkat, sistem menampilkan hasil skor dan saran secara instan.</div>
+    </div>
+    <div class="feature-card">
+      <div class="feature-icon">🔒</div>
+      <div class="feature-title">Konsultasi Anonim</div>
+      <div class="feature-desc">Isi formulir curhat tanpa nama, dapatkan kode unik, gunakan kode tersebut untuk melihat balasan konselor secara rahasia.</div>
+    </div>
+    <div class="feature-card">
+      <div class="feature-icon">👩‍⚕️</div>
+      <div class="feature-title">Direktori Konselor Kampus</div>
+      <div class="feature-desc">Lihat daftar konselor/psikolog kampus yang tersedia, lengkap dengan jadwal, spesialisasi, dan cara menghubungi.</div>
+    </div>
+  </div>
+
+  <!-- WIREFRAME -->
+  <div class="slabel" style="margin-top:2.5rem;">Wireframe</div>
+  <h2>Sketsa Tampilan Awal</h2>
+  <div class="div"></div>
+  <div class="wireframe">
+    <div class="wf-screen">
+      <div class="wf-screen-title">🏠 Halaman Beranda</div>
+      <div class="wf-bar" style="width:40%;"></div>
+      <div class="wf-bar" style="width:70%;"></div>
+      <span class="wf-btn">Cek Kondisi Mental</span>
+      <span class="wf-btn">Curhat Anonim</span>
+      <span class="wf-btn">Cari Konselor</span>
+    </div>
+    <div class="wf-screen">
+      <div class="wf-screen-title">📝 Halaman Skrining Mandiri</div>
+      <div class="wf-bar" style="width:60%;"></div>
+      <div class="wf-bar" style="width:90%;"></div>
+      <div class="wf-bar" style="width:90%;"></div>
+      <div class="wf-bar" style="width:90%;"></div>
+      <span class="wf-btn">Lihat Hasil</span>
+    </div>
+    <div class="wf-screen" style="margin-bottom:0;">
+      <div class="wf-screen-title">🔒 Halaman Konsultasi Anonim</div>
+      <div class="wf-bar" style="width:50%;"></div>
+      <div class="wf-bar" style="width:90%;height:40px;"></div>
+      <span class="wf-btn">Kirim & Dapatkan Kode Unik</span>
+    </div>
+  </div>
+
+  <p>Prototipe yang Anda lihat saat ini — website ini sendiri — adalah hasil dari proses di atas, siap untuk memasuki tahap pengujian bersama mahasiswa.</p>
+
+</div>
+
+<footer><p>🧠 <span>MindSDG3</span> · Lean Canvas & Prototipe · SDG 3</p></footer>
+</body>
+</html>

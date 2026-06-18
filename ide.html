@@ -1,0 +1,297 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8"/><meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>Ide (Ideation) — MindSDG3</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;1,400&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet"/>
+<style>
+:root{--pink-50:#fff0f6;--pink-100:#ffe0ee;--pink-200:#ffc2d9;--pink-300:#ff99be;--pink-400:#ff6b9d;--pink-500:#e84d8a;--pink-600:#c4306e;--blush:#fde8f0;--cream:#fffaf8;--text-dark:#2d1b2e;--text-mid:#6b4b6b;--text-light:#a07090;}
+*{margin:0;padding:0;box-sizing:border-box;}
+body{font-family:'DM Sans',sans-serif;background:var(--cream);color:var(--text-dark);}
+nav{position:fixed;top:0;width:100%;z-index:100;background:rgba(255,240,246,.9);backdrop-filter:blur(14px);border-bottom:1px solid var(--pink-100);padding:0 5%;display:flex;align-items:center;justify-content:space-between;height:64px;}
+.nav-logo{font-family:'Playfair Display',serif;font-size:1.3rem;color:var(--pink-500);text-decoration:none;}
+.back{display:inline-flex;align-items:center;gap:6px;color:var(--pink-500);font-size:.85rem;font-weight:600;text-decoration:none;padding:7px 16px;border-radius:999px;border:1.5px solid var(--pink-200);transition:all .2s;}
+.back:hover{background:var(--pink-50);}
+.hero{min-height:42vh;display:flex;align-items:center;justify-content:center;text-align:center;padding:100px 5% 50px;background:radial-gradient(ellipse 80% 60% at 50% 0%,rgba(255,154,195,.3) 0%,transparent 70%),var(--cream);}
+.badge{display:inline-block;background:var(--pink-100);color:var(--pink-600);font-size:.72rem;font-weight:600;letter-spacing:2px;text-transform:uppercase;padding:5px 16px;border-radius:999px;margin-bottom:1rem;}
+h1{font-family:'Playfair Display',serif;font-size:clamp(2rem,4.5vw,3.4rem);line-height:1.15;margin-bottom:1rem;}
+h1 em{color:var(--pink-500);font-style:italic;}
+.sub{font-size:1rem;color:var(--text-mid);max-width:600px;margin:0 auto;line-height:1.7;}
+.content{max-width:980px;margin:0 auto;padding:50px 5% 80px;}
+.slabel{font-size:.72rem;font-weight:600;letter-spacing:2.5px;text-transform:uppercase;color:var(--pink-400);margin-bottom:.5rem;}
+h2{font-family:'Playfair Display',serif;font-size:1.85rem;margin-bottom:1rem;}
+h3{font-family:'Playfair Display',serif;font-size:1.25rem;margin:1.6rem 0 .8rem;color:var(--text-dark);}
+.div{width:48px;height:3px;background:linear-gradient(90deg,var(--pink-400),var(--pink-200));border-radius:2px;margin:.8rem 0 1.6rem;}
+p{font-size:.93rem;color:var(--text-mid);line-height:1.75;margin-bottom:1rem;}
+
+/* Existing solutions table */
+.solutions-table-wrap{overflow-x:auto;margin:1.5rem 0;}
+.solutions-table{width:100%;border-collapse:collapse;min-width:680px;border-radius:16px;overflow:hidden;box-shadow:0 2px 16px rgba(0,0,0,.06);}
+.solutions-table th,.solutions-table td{padding:14px 16px;font-size:.84rem;text-align:left;vertical-align:top;line-height:1.6;}
+.solutions-table thead th{background:var(--pink-500);color:white;font-weight:700;font-size:.78rem;letter-spacing:1px;text-transform:uppercase;}
+.solutions-table thead th:first-child{background:var(--pink-600);}
+.solutions-table tbody td{background:white;color:var(--text-mid);border-bottom:1px solid var(--pink-50);}
+.solutions-table tbody td:first-child{font-weight:700;color:var(--text-dark);background:var(--pink-50);}
+.solutions-table tbody tr:last-child td{border-bottom:none;}
+
+/* Starburst */
+.starburst-wrap{display:flex;flex-direction:column;align-items:center;margin:2rem 0;}
+.star-center{background:var(--pink-500);color:white;font-family:'Playfair Display',serif;font-size:1.1rem;font-weight:700;padding:18px 30px;border-radius:999px;text-align:center;box-shadow:0 8px 24px rgba(232,77,138,.3);margin-bottom:1.5rem;max-width:480px;}
+.star-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(180px,1fr));gap:14px;width:100%;}
+.star-card{background:white;border:2px solid var(--pink-200);border-radius:16px;padding:16px;}
+.star-card .star-q{font-weight:700;font-size:.85rem;color:var(--pink-600);margin-bottom:8px;display:flex;align-items:center;gap:6px;}
+.star-card ul{padding-left:1.1rem;}
+.star-card li{font-size:.8rem;color:var(--text-mid);line-height:1.6;margin-bottom:.3rem;}
+
+/* Goals & problems */
+.tag-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(220px,1fr));gap:12px;margin:1rem 0 1.5rem;}
+.tag-card{background:white;border:1px solid var(--pink-100);border-radius:14px;padding:16px 18px;font-size:.85rem;color:var(--text-dark);line-height:1.6;}
+.tag-card::before{content:'✦ ';color:var(--pink-400);font-weight:700;}
+
+/* Retrospective MoSCoW-style */
+.retro-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:14px;margin:1.5rem 0;}
+.retro-card{border-radius:16px;padding:18px;border:1.5px solid;}
+.retro-card.more{background:#e8f5e9;border-color:#a3d9b1;}
+.retro-card.less{background:#fde8e8;border-color:#f5a0a0;}
+.retro-card.keep{background:#e8f0fe;border-color:#93c5fd;}
+.retro-card.start{background:#fff8e8;border-color:#f6d860;}
+.retro-card.stop{background:var(--pink-50);border-color:var(--pink-300);}
+.retro-label{font-size:.72rem;font-weight:700;letter-spacing:2px;text-transform:uppercase;padding:4px 12px;border-radius:999px;color:white;display:inline-block;margin-bottom:.7rem;}
+.more .retro-label{background:#28a745;}
+.less .retro-label{background:#e53e3e;}
+.keep .retro-label{background:#2563eb;}
+.start .retro-label{background:#d69e2e;}
+.stop .retro-label{background:var(--pink-500);}
+.retro-card ul{padding-left:1.1rem;}
+.retro-card li{font-size:.83rem;color:var(--text-dark);line-height:1.6;margin-bottom:.35rem;}
+
+.chosen-idea{background:linear-gradient(135deg,var(--pink-50),white);border:2px solid var(--pink-300);border-radius:20px;padding:28px;margin:2rem 0;}
+.chosen-label{font-size:.72rem;font-weight:700;color:var(--pink-500);letter-spacing:2px;text-transform:uppercase;margin-bottom:.5rem;}
+.chosen-title{font-family:'Playfair Display',serif;font-size:1.4rem;color:var(--text-dark);margin-bottom:.8rem;}
+
+/* Flow */
+.flow-list{display:flex;flex-direction:column;gap:10px;margin:1rem 0 1.5rem;}
+.flow-step{display:flex;align-items:flex-start;gap:14px;background:white;border:1px solid var(--pink-100);border-radius:14px;padding:14px 18px;}
+.flow-num{background:var(--pink-500);color:white;font-weight:700;font-size:.85rem;width:28px;height:28px;border-radius:50%;display:flex;align-items:center;justify-content:center;flex-shrink:0;}
+.flow-text{font-size:.86rem;color:var(--text-dark);line-height:1.6;}
+.flow-goal{color:var(--pink-600);font-weight:700;}
+
+.ref{font-size:.78rem;color:var(--text-light);font-style:italic;}
+
+footer{background:var(--text-dark);color:rgba(255,255,255,.5);text-align:center;padding:28px 5%;font-size:.8rem;}
+footer span{color:#ff99be;}
+</style>
+</head>
+<body>
+<nav>
+  <a class="nav-logo" href="index.html">🧠 MindSDG3</a>
+  <a class="back" href="index.html">← Kembali</a>
+</nav>
+
+<div class="hero">
+  <div>
+    <div class="badge">Tahap 2 · Ideation</div>
+    <h1>Ide <em>(Ideation)</em></h1>
+    <p class="sub">Meninjau solusi yang sudah ada, mengeksplorasi ide melalui Starburst, dan menentukan arah solusi melalui retrospektif.</p>
+  </div>
+</div>
+
+<div class="content">
+
+  <div class="slabel">Riset Kompetitor</div>
+  <h2>Solusi yang Sudah Ada</h2>
+  <div class="div"></div>
+  <p>Sebelum merancang solusi baru, kami meneliti tiga alternatif layanan kesehatan mental yang sudah tersedia di Indonesia untuk memahami apa yang sudah ditawarkan dan kesenjangan yang masih ada.</p>
+
+  <div class="solutions-table-wrap">
+    <table class="solutions-table">
+      <thead>
+        <tr>
+          <th>Aspek</th>
+          <th>Riliv<br/><span style="font-weight:400;text-transform:none;">PT Riliv Psikologi Indonesia</span></th>
+          <th>Halodoc<br/><span style="font-weight:400;text-transform:none;">PT Media Dokter Investama</span></th>
+          <th>Puskesmas Kecamatan/Terdekat</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>Layanan yang disediakan</td>
+          <td>Konseling online via chat dengan psikolog profesional, fitur meditasi terbimbing (mindfulness), jurnal harian untuk melacak suasana hati, dan artikel edukasi kesehatan mental.</td>
+          <td>Platform telemedicine yang menyediakan konsultasi chat/video dengan psikiater/psikolog, layanan resep obat psikiatri online, dan fitur "Tanya Dokter" 24 jam.</td>
+          <td>Layanan konseling dasar, pemeriksaan kesehatan jiwa ringan, dan rujukan ke rumah sakit jika diperlukan.</td>
+        </tr>
+        <tr>
+          <td>Target audiens</td>
+          <td>Remaja, mahasiswa, serta orang dewasa.</td>
+          <td>Semua kelompok usia (dewasa dan remaja) dengan akses internet.</td>
+          <td>Masyarakat umum, pelajar, mahasiswa, warga sekitar.</td>
+        </tr>
+        <tr>
+          <td>Biaya</td>
+          <td>Fitur meditasi dan artikel tersedia gratis. Sesi konseling psikolog berbayar, mulai dari ±Rp100.000–Rp150.000 per sesi.</td>
+          <td>Unduh aplikasi gratis. Konsultasi psikiater/psikolog berbayar mulai dari ±Rp150.000–Rp500.000/sesi, obat-obatan dijual terpisah.</td>
+          <td>Umumnya gratis jika memakai BPJS, tarif sekitar Rp5.000–Rp20.000 jika tidak memiliki BPJS, tergantung kota dan kebijakan daerah.</td>
+        </tr>
+        <tr>
+          <td>Kesenjangan</td>
+          <td>Harga konseling berbayar masih sering dianggap mahal.</td>
+          <td>Biaya konsultasi psikiater/psikolog masih tergolong mahal untuk mahasiswa.</td>
+          <td>Jam pelayanan terbatas, antrean cukup lama, serta tidak semua puskesmas memiliki psikolog khusus.</td>
+        </tr>
+        <tr>
+          <td>Wawasan lain</td>
+          <td>Platform digital membantu mengurangi hambatan psikologis (malu/stigma) karena pengguna bisa anonim, namun tantangan utamanya adalah konsistensi pengguna dalam pengobatan mandiri.</td>
+          <td>Platform kesehatan terbesar di Indonesia, namun mental health hanya salah satu dari banyak layanan (bukan fokus utama).</td>
+          <td>Puskesmas masih jadi pilihan penting karena dekat dan terjangkau.</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <!-- STARBURST -->
+  <div class="slabel" style="margin-top:2.5rem;">Eksplorasi Solusi</div>
+  <h2>Starburst Analysis</h2>
+  <div class="div"></div>
+  <p>Hasil diskusi kelompok mengenai prototipe solusi terhadap isu kesehatan mental mahasiswa adalah membuat <strong>platform digital yang menyediakan layanan skrining mandiri dan konsultasi anonim</strong>. Platform ini bertujuan memudahkan mahasiswa untuk mengecek kondisi mentalnya dan mendapatkan akses ke konselor kampus tanpa harus merasa malu atau takut dihakimi.</p>
+
+  <h3>🎯 Tujuan</h3>
+  <div class="tag-grid">
+    <div class="tag-card">Menyediakan fitur skrining mandiri kondisi mental yang mudah diakses mahasiswa</div>
+    <div class="tag-card">Memberikan ruang aman bagi mahasiswa untuk bercerita secara anonim</div>
+    <div class="tag-card">Menyambungkan mahasiswa dengan konselor atau psikolog kampus yang tersedia</div>
+    <div class="tag-card">Meningkatkan kesadaran mahasiswa terhadap pentingnya kesehatan mental</div>
+  </div>
+
+  <h3>⚠️ Permasalahan Utama yang Diangkat</h3>
+  <div class="tag-grid">
+    <div class="tag-card">Masih kuatnya rasa malu atau takut dihakimi saat ingin mengakses layanan kesehatan mental</div>
+    <div class="tag-card">Sulitnya menemukan jadwal atau menghubungi konselor kampus secara langsung dan cepat</div>
+    <div class="tag-card">Banyak mahasiswa tidak menyadari tingkat keparahan stres/kecemasan karena tidak ada alat skrining mandiri yang praktis</div>
+    <div class="tag-card">Koneksi internet yang terbatas</div>
+  </div>
+
+  <div class="starburst-wrap">
+    <div class="star-center">🌐 Platform Skrining Mandiri & Konsultasi Anonim untuk Kesehatan Mental Mahasiswa</div>
+    <div class="star-grid">
+      <div class="star-card">
+        <div class="star-q">❓ Apa Masalahnya</div>
+        <ul>
+          <li>Banyak mahasiswa yang tidak tahu harus ke mana kalau lagi stres atau cemas</li>
+          <li>Susah menemukan konselor/psikolog yang bisa diakses dengan mudah dan gratis</li>
+          <li>Mahasiswa sering lebih memilih diam atau curhat ke teman padahal butuh bantuan profesional</li>
+        </ul>
+      </div>
+      <div class="star-card">
+        <div class="star-q">🙋 Siapa Pengguna</div>
+        <ul>
+          <li>Mahasiswa aktif dari semester awal sampai tingkat akhir</li>
+          <li>Mahasiswa yang sedang mengerjakan skripsi/tugas akhir</li>
+          <li>Mahasiswa yang butuh tempat curhat atau mencari bantuan</li>
+        </ul>
+      </div>
+      <div class="star-card">
+        <div class="star-q">📍 Di Mana Digunakan</div>
+        <ul>
+          <li>Lingkungan kampus</li>
+          <li>Kos atau rumah mahasiswa</li>
+          <li>Diakses melalui web browser</li>
+        </ul>
+      </div>
+      <div class="star-card">
+        <div class="star-q">❔ Mengapa Penting</div>
+        <ul>
+          <li>Kesehatan mental sangat mempengaruhi performa belajar dan kehidupan sehari-hari</li>
+          <li>Masih banyak stigma soal minta bantuan psikolog — perlu platform anonim dan aman</li>
+          <li>Mahasiswa yang butuh bantuan bisa langsung dapat akses tanpa ribet</li>
+        </ul>
+      </div>
+      <div class="star-card">
+        <div class="star-q">🙋‍♀️ Mengapa Dipakai</div>
+        <ul>
+          <li>Gampang diakses lewat web, tidak perlu download</li>
+          <li>Bisa skrining kondisi mental sendiri kapan saja</li>
+          <li>Fitur anonim sehingga identitas tetap aman</li>
+        </ul>
+      </div>
+      <div class="star-card">
+        <div class="star-q">⚙️ Bagaimana Bekerja</div>
+        <ul>
+          <li>Skrining mandiri: jawab pertanyaan singkat → sistem beri hasil & saran</li>
+          <li>Konsultasi anonim: isi form curhat → direspons konselor via kode unik</li>
+          <li>Cari konselor: lihat daftar, jadwal, dan spesialisasi konselor kampus</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+  <!-- ALUR -->
+  <h3>🔄 Contoh Flow Awal Penggunaan Web</h3>
+  <p style="margin-bottom:.5rem;"><strong>Alur Skrining Mandiri:</strong></p>
+  <div class="flow-list">
+    <div class="flow-step"><div class="flow-num">1</div><div class="flow-text">Mahasiswa membuka website platform.</div></div>
+    <div class="flow-step"><div class="flow-num">2</div><div class="flow-text">Memilih fitur <strong>'Cek Kondisi Mental'</strong>.</div></div>
+    <div class="flow-step"><div class="flow-num">3</div><div class="flow-text">Menjawab beberapa pertanyaan singkat yang muncul.</div></div>
+    <div class="flow-step"><div class="flow-num">4</div><div class="flow-text">Sistem menampilkan hasil skor dan saran secara instan.</div></div>
+    <div class="flow-step"><div class="flow-num">5</div><div class="flow-text">Mahasiswa mengetahui kondisi mentalnya saat itu tanpa perlu login. <span class="flow-goal">(Goal)</span></div></div>
+  </div>
+
+  <p style="margin-bottom:.5rem;"><strong>Alur Konsultasi Anonim:</strong></p>
+  <div class="flow-list">
+    <div class="flow-step"><div class="flow-num">1</div><div class="flow-text">Mahasiswa membuka website platform.</div></div>
+    <div class="flow-step"><div class="flow-num">2</div><div class="flow-text">Mengisi formulir curhat tanpa mencantumkan nama (anonim).</div></div>
+    <div class="flow-step"><div class="flow-num">3</div><div class="flow-text">Mahasiswa mengirim formulir dan mendapatkan <strong>'Kode Unik'</strong>.</div></div>
+    <div class="flow-step"><div class="flow-num">4</div><div class="flow-text">Mahasiswa memasukkan kode tersebut di kemudian hari untuk melihat balasan konselor.</div></div>
+    <div class="flow-step"><div class="flow-num">5</div><div class="flow-text">Mahasiswa mendapat solusi dari ahli secara rahasia. <span class="flow-goal">(Goal)</span></div></div>
+  </div>
+
+  <!-- RETROSPECTIVE -->
+  <div class="slabel" style="margin-top:2.5rem;">Penyempurnaan Ide</div>
+  <h2>Ide Retrospektif</h2>
+  <div class="div"></div>
+  <div class="retro-grid">
+    <div class="retro-card more">
+      <div class="retro-label">➕ More Of</div>
+      <ul>
+        <li>Konten Edukasi Gratis: artikel/panduan self-help yang mudah dipahami</li>
+        <li>Jumlah Konselor Sukarela: menambah relawan/psikolog yang siap merespons rutin</li>
+        <li>Akses Ringan/Low Data: fitur teks (chat/form) tetap lancar di jaringan lemah</li>
+      </ul>
+    </div>
+    <div class="retro-card less">
+      <div class="retro-label">➖ Less Of</div>
+      <ul>
+        <li>Tampilan rumit</li>
+      </ul>
+    </div>
+    <div class="retro-card keep">
+      <div class="retro-label">✅ Keep Doing</div>
+      <ul>
+        <li>Forum diskusi/curhat</li>
+        <li>Mood tracker</li>
+      </ul>
+    </div>
+    <div class="retro-card start">
+      <div class="retro-label">🚀 Start Doing</div>
+      <ul>
+        <li>Kerjasama kampus & komunitas</li>
+      </ul>
+    </div>
+    <div class="retro-card stop">
+      <div class="retro-label">🛑 Stop Doing</div>
+      <ul>
+        <li>Alur pendaftaran/login yang berbelit</li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="chosen-idea">
+    <div class="chosen-label">✦ Ide Terpilih</div>
+    <div class="chosen-title">🌐 Platform Skrining Mandiri & Konsultasi Anonim untuk Kesehatan Mental Mahasiswa</div>
+    <p style="margin:0;">Solusi berupa platform web (tanpa perlu download aplikasi) yang menyediakan tiga fitur utama: skrining mandiri kondisi mental, konsultasi anonim dengan kode unik, dan direktori konselor kampus — dirancang untuk mengatasi stigma, keterbatasan akses konselor, dan minimnya alat skrining praktis bagi mahasiswa Indonesia.</p>
+  </div>
+
+</div>
+
+<footer><p>🧠 <span>MindSDG3</span> · Ide & Starburst · SDG 3</p></footer>
+</body>
+</html>

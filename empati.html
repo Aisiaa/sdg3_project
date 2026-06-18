@@ -1,0 +1,281 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8"/><meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>Empati & Penelitian — MindSDG3</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;1,400&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet"/>
+<style>
+:root{--pink-50:#fff0f6;--pink-100:#ffe0ee;--pink-200:#ffc2d9;--pink-300:#ff99be;--pink-400:#ff6b9d;--pink-500:#e84d8a;--pink-600:#c4306e;--blush:#fde8f0;--cream:#fffaf8;--text-dark:#2d1b2e;--text-mid:#6b4b6b;--text-light:#a07090;}
+*{margin:0;padding:0;box-sizing:border-box;}
+body{font-family:'DM Sans',sans-serif;background:var(--cream);color:var(--text-dark);}
+nav{position:fixed;top:0;width:100%;z-index:100;background:rgba(255,240,246,.9);backdrop-filter:blur(14px);border-bottom:1px solid var(--pink-100);padding:0 5%;display:flex;align-items:center;justify-content:space-between;height:64px;}
+.nav-logo{font-family:'Playfair Display',serif;font-size:1.3rem;color:var(--pink-500);text-decoration:none;}
+.back{display:inline-flex;align-items:center;gap:6px;color:var(--pink-500);font-size:.85rem;font-weight:600;text-decoration:none;padding:7px 16px;border-radius:999px;border:1.5px solid var(--pink-200);transition:all .2s;}
+.back:hover{background:var(--pink-50);}
+.hero{min-height:42vh;display:flex;align-items:center;justify-content:center;text-align:center;padding:100px 5% 50px;background:radial-gradient(ellipse 80% 60% at 50% 0%,rgba(255,154,195,.3) 0%,transparent 70%),var(--cream);}
+.badge{display:inline-block;background:var(--pink-100);color:var(--pink-600);font-size:.72rem;font-weight:600;letter-spacing:2px;text-transform:uppercase;padding:5px 16px;border-radius:999px;margin-bottom:1rem;}
+h1{font-family:'Playfair Display',serif;font-size:clamp(2rem,4.5vw,3.4rem);line-height:1.15;margin-bottom:1rem;}
+h1 em{color:var(--pink-500);font-style:italic;}
+.sub{font-size:1rem;color:var(--text-mid);max-width:600px;margin:0 auto;line-height:1.7;}
+.content{max-width:920px;margin:0 auto;padding:50px 5% 80px;}
+.slabel{font-size:.72rem;font-weight:600;letter-spacing:2.5px;text-transform:uppercase;color:var(--pink-400);margin-bottom:.5rem;}
+h2{font-family:'Playfair Display',serif;font-size:1.85rem;margin-bottom:1rem;}
+h3{font-family:'Playfair Display',serif;font-size:1.3rem;margin:1.6rem 0 .8rem;color:var(--text-dark);}
+.div{width:48px;height:3px;background:linear-gradient(90deg,var(--pink-400),var(--pink-200));border-radius:2px;margin:.8rem 0 1.6rem;}
+p{font-size:.93rem;color:var(--text-mid);line-height:1.75;margin-bottom:1rem;}
+a.url{color:var(--pink-500);text-decoration:none;font-weight:600;word-break:break-all;}
+
+.q-card{background:white;border-radius:16px;border:1px solid var(--pink-100);padding:18px 22px;margin-bottom:14px;}
+.q-title{font-weight:700;color:var(--text-dark);font-size:.92rem;margin-bottom:10px;}
+
+.bar-row{display:flex;align-items:center;gap:10px;margin-bottom:8px;}
+.bar-label{font-size:.78rem;color:var(--text-mid);width:140px;flex-shrink:0;}
+.bar-track{flex:1;background:var(--pink-50);border-radius:999px;height:10px;overflow:hidden;}
+.bar-fill{height:100%;background:linear-gradient(90deg,var(--pink-300),var(--pink-500));border-radius:999px;}
+.bar-pct{font-size:.78rem;font-weight:700;color:var(--pink-600);width:46px;text-align:right;flex-shrink:0;}
+.bar-insight{font-size:.82rem;color:var(--text-light);font-style:italic;margin-top:8px;}
+
+.stat-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(150px,1fr));gap:12px;margin-bottom:1.5rem;}
+.stat-mini{background:var(--blush);border-radius:14px;padding:16px;text-align:center;}
+.stat-mini .num{font-family:'Playfair Display',serif;font-size:1.6rem;color:var(--pink-500);font-weight:700;}
+.stat-mini .lbl{font-size:.75rem;color:var(--text-mid);margin-top:4px;}
+
+.quote-list{display:flex;flex-wrap:wrap;gap:10px;margin:1rem 0 1.5rem;}
+.quote-chip{background:var(--pink-50);border:1px solid var(--pink-200);border-radius:14px;padding:10px 16px;font-size:.84rem;color:var(--text-dark);font-style:italic;}
+
+.conclusion-box{background:linear-gradient(135deg,var(--pink-50),white);border:2px solid var(--pink-200);border-radius:18px;padding:22px 26px;margin:1.5rem 0;}
+.conclusion-box h4{font-family:'Playfair Display',serif;font-size:1.1rem;margin-bottom:.6rem;}
+.conclusion-box p{margin:0;font-size:.88rem;}
+
+/* EMPATHY MATRIX */
+.empathy-grid{display:grid;grid-template-columns:1fr 1fr;gap:16px;margin:1.5rem 0;}
+@media(max-width:640px){.empathy-grid{grid-template-columns:1fr;}}
+.empathy-card{border-radius:18px;padding:22px;border:1.5px solid;}
+.empathy-card.feel{background:#fff0f6;border-color:var(--pink-300);}
+.empathy-card.think{background:#fff8e8;border-color:#f6d860;}
+.empathy-card.do{background:#e8f5e9;border-color:#a3d9b1;}
+.empathy-card.hear{background:#e8f0fe;border-color:#93c5fd;}
+.empathy-label{display:inline-flex;align-items:center;gap:6px;font-size:.72rem;font-weight:700;letter-spacing:2px;text-transform:uppercase;padding:4px 12px;border-radius:999px;margin-bottom:.8rem;color:white;}
+.feel .empathy-label{background:var(--pink-500);}
+.think .empathy-label{background:#d69e2e;}
+.do .empathy-label{background:#28a745;}
+.hear .empathy-label{background:#2563eb;}
+.empathy-card p{font-size:.86rem;color:var(--text-dark);margin:0;}
+
+.pain-gain{display:grid;grid-template-columns:1fr 1fr;gap:16px;margin:1.5rem 0;}
+@media(max-width:640px){.pain-gain{grid-template-columns:1fr;}}
+.pg-card{border-radius:18px;padding:22px;border:1.5px solid;}
+.pg-card.pain{background:var(--weakness,#fde8e8);border-color:#f5a0a0;}
+.pg-card.gain{background:#e8f5e9;border-color:#a3d9b1;}
+.pg-label{font-size:.72rem;font-weight:700;letter-spacing:2px;text-transform:uppercase;padding:4px 12px;border-radius:999px;color:white;display:inline-block;margin-bottom:.8rem;}
+.pain .pg-label{background:#e53e3e;}
+.gain .pg-label{background:#28a745;}
+.pg-card ul{padding-left:1.1rem;}
+.pg-card li{font-size:.85rem;color:var(--text-dark);line-height:1.6;margin-bottom:.4rem;}
+
+footer{background:var(--text-dark);color:rgba(255,255,255,.5);text-align:center;padding:28px 5%;font-size:.8rem;}
+footer span{color:#ff99be;}
+</style>
+</head>
+<body>
+<nav>
+  <a class="nav-logo" href="index.html">🧠 MindSDG3</a>
+  <a class="back" href="index.html">← Kembali</a>
+</nav>
+
+<div class="hero">
+  <div>
+    <div class="badge">Tahap 1 · Empathize & Research</div>
+    <h1>Empati & <em>Penelitian</em></h1>
+    <p class="sub">Riset mendalam mengenai kondisi kesehatan mental mahasiswa Indonesia dalam menghadapi tekanan akademik, melalui survei dan empathy matrix.</p>
+  </div>
+</div>
+
+<div class="content">
+
+  <div class="slabel">Apa Masalah yang Diteliti?</div>
+  <h2>Kesehatan Mental Mahasiswa</h2>
+  <div class="div"></div>
+  <p>Tingginya tingkat <strong>stres, kecemasan, dan kelelahan mental</strong> pada remaja khususnya mahasiswa yang disebabkan oleh tekanan tugas, tuntutan akademik, masalah ekonomi, serta kurangnya tempat curhat atau layanan konseling yang mudah dijangkau.</p>
+  <p>Tujuan dan Target UN: <strong>SDG 3 – Kehidupan Sehat dan Sejahtera.</strong> Target: meningkatkan kesehatan mental dan kesejahteraan mahasiswa dalam menghadapi tekanan akademik.</p>
+
+  <h3>Aspek yang Diteliti</h3>
+  <div class="quote-list">
+    <div class="quote-chip">📚 Tingkat stres akademik mahasiswa</div>
+    <div class="quote-chip">😰 Kecemasan terhadap masa depan</div>
+    <div class="quote-chip">😴 Kelelahan mental</div>
+    <div class="quote-chip">🧩 Kesulitan fokus belajar</div>
+    <div class="quote-chip">⚡ Sumber tekanan utama mahasiswa</div>
+    <div class="quote-chip">🤝 Cara mahasiswa mengatasi tekanan (coping mechanism)</div>
+  </div>
+
+  <div class="slabel" style="margin-top:2rem;">Metode</div>
+  <h2>Survei Kesehatan Mental Mahasiswa</h2>
+  <div class="div"></div>
+  <p>Dengan menggunakan Google Forms, kami menyebarkan survei kepada mahasiswa untuk mengetahui kondisi kesehatan mental yang mereka alami dalam kehidupan perkuliahan sehari-hari. Survei menggunakan skala penilaian 1–5 (1 = sangat rendah/tidak dialami, 5 = sangat tinggi/sangat sering dialami) dan dibuat secara anonim agar responden dapat menjawab dengan jujur dan nyaman.</p>
+
+  <h3>Profil Responden</h3>
+  <div class="stat-grid">
+    <div class="stat-mini"><div class="num">48%</div><div class="lbl">Laki-laki</div></div>
+    <div class="stat-mini"><div class="num">40%</div><div class="lbl">Perempuan</div></div>
+    <div class="stat-mini"><div class="num">12%</div><div class="lbl">Tidak menyebutkan</div></div>
+    <div class="stat-mini"><div class="num">64%</div><div class="lbl">Usia 20–22 tahun</div></div>
+    <div class="stat-mini"><div class="num">44%</div><div class="lbl">Semester 5–6</div></div>
+    <div class="stat-mini"><div class="num">12%</div><div class="lbl">Sedang skripsi/TA</div></div>
+  </div>
+
+  <h3>Hasil Survei: Indikator Kesehatan Mental</h3>
+
+  <div class="q-card">
+    <div class="q-title">📌 Tingkat Stres karena Tugas Kuliah/Skripsi (Skala 1–5)</div>
+    <div class="bar-row"><div class="bar-label">Skala 4 (tinggi)</div><div class="bar-track"><div class="bar-fill" style="width:44%;"></div></div><div class="bar-pct">44%</div></div>
+    <div class="bar-row"><div class="bar-label">Skala 5 (sangat tinggi)</div><div class="bar-track"><div class="bar-fill" style="width:20%;"></div></div><div class="bar-pct">20%</div></div>
+    <div class="bar-row"><div class="bar-label">Skala 3 (sedang)</div><div class="bar-track"><div class="bar-fill" style="width:24%;"></div></div><div class="bar-pct">24%</div></div>
+    <div class="bar-insight">→ Menunjukkan bahwa sebagian besar mahasiswa mengalami stres akademik yang cukup tinggi.</div>
+  </div>
+
+  <div class="q-card">
+    <div class="q-title">📌 Tingkat Kecemasan terhadap Masa Depan Akademik</div>
+    <div class="bar-row"><div class="bar-label">Skala 4</div><div class="bar-track"><div class="bar-fill" style="width:41.7%;"></div></div><div class="bar-pct">41,7%</div></div>
+    <div class="bar-row"><div class="bar-label">Skala 5</div><div class="bar-track"><div class="bar-fill" style="width:37.5%;"></div></div><div class="bar-pct">37,5%</div></div>
+    <div class="bar-insight">→ Mayoritas mahasiswa merasa cemas terhadap masa depan akademik mereka.</div>
+  </div>
+
+  <div class="q-card">
+    <div class="q-title">📌 Kesulitan Berkonsentrasi Saat Belajar</div>
+    <div class="bar-row"><div class="bar-label">Skala 3</div><div class="bar-track"><div class="bar-fill" style="width:36%;"></div></div><div class="bar-pct">36%</div></div>
+    <div class="bar-row"><div class="bar-label">Skala 4</div><div class="bar-track"><div class="bar-fill" style="width:28%;"></div></div><div class="bar-pct">28%</div></div>
+    <div class="bar-row"><div class="bar-label">Skala 5</div><div class="bar-track"><div class="bar-fill" style="width:20%;"></div></div><div class="bar-pct">20%</div></div>
+    <div class="bar-insight">→ Menunjukkan adanya gangguan fokus belajar pada sebagian besar responden.</div>
+  </div>
+
+  <div class="q-card">
+    <div class="q-title">📌 Kelelahan Mental yang Dialami</div>
+    <div class="bar-row"><div class="bar-label">Skala 3 (sedang)</div><div class="bar-track"><div class="bar-fill" style="width:48%;"></div></div><div class="bar-pct">48%</div></div>
+    <div class="bar-row"><div class="bar-label">Skala 5 (tinggi)</div><div class="bar-track"><div class="bar-fill" style="width:24%;"></div></div><div class="bar-pct">24%</div></div>
+    <div class="bar-insight">→ Kelelahan mental cukup umum dirasakan mahasiswa.</div>
+  </div>
+
+  <div class="q-card">
+    <div class="q-title">📌 Kehilangan Motivasi dalam Mengerjakan Tugas</div>
+    <p style="margin:0;font-size:.85rem;">Distribusi cukup merata di skala 2–5.</p>
+    <div class="bar-insight">→ Menandakan masalah motivasi menjadi isu yang cukup signifikan.</div>
+  </div>
+
+  <div class="q-card">
+    <div class="q-title">📌 Perasaan Sedih atau Tertekan Tanpa Alasan Jelas</div>
+    <div class="bar-row"><div class="bar-label">Skala 3</div><div class="bar-track"><div class="bar-fill" style="width:36%;"></div></div><div class="bar-pct">36%</div></div>
+    <div class="bar-row"><div class="bar-label">Skala 5</div><div class="bar-track"><div class="bar-fill" style="width:20%;"></div></div><div class="bar-pct">20%</div></div>
+    <div class="bar-insight">→ Menunjukkan adanya indikasi tekanan emosional.</div>
+  </div>
+
+  <div class="q-card">
+    <div class="q-title">📌 Gangguan Tidur karena Pikiran Berlebihan (Overthinking)</div>
+    <div class="bar-row"><div class="bar-label">Skala 3</div><div class="bar-track"><div class="bar-fill" style="width:28%;"></div></div><div class="bar-pct">28%</div></div>
+    <div class="bar-row"><div class="bar-label">Skala 5</div><div class="bar-track"><div class="bar-fill" style="width:24%;"></div></div><div class="bar-pct">24%</div></div>
+    <div class="bar-row"><div class="bar-label">Skala 2</div><div class="bar-track"><div class="bar-fill" style="width:24%;"></div></div><div class="bar-pct">24%</div></div>
+    <div class="bar-insight">→ Overthinking menjadi salah satu faktor yang cukup sering dialami.</div>
+  </div>
+
+  <div class="q-card">
+    <div class="q-title">📌 Kemampuan Menikmati Aktivitas Sehari-hari</div>
+    <div class="bar-row"><div class="bar-label">Skala 4</div><div class="bar-track"><div class="bar-fill" style="width:36%;"></div></div><div class="bar-pct">36%</div></div>
+    <div class="bar-row"><div class="bar-label">Skala 5</div><div class="bar-track"><div class="bar-fill" style="width:32%;"></div></div><div class="bar-pct">32%</div></div>
+    <div class="bar-insight">→ Walaupun banyak tekanan, sebagian mahasiswa masih mampu menikmati aktivitasnya.</div>
+  </div>
+
+  <div class="q-card">
+    <div class="q-title">📌 Sumber Tekanan Utama Mahasiswa</div>
+    <div class="bar-row"><div class="bar-label">Tugas kuliah</div><div class="bar-track"><div class="bar-fill" style="width:80%;"></div></div><div class="bar-pct">80%</div></div>
+    <div class="bar-row"><div class="bar-label">Nilai akademik</div><div class="bar-track"><div class="bar-fill" style="width:52%;"></div></div><div class="bar-pct">52%</div></div>
+    <div class="bar-row"><div class="bar-label">Pekerjaan</div><div class="bar-track"><div class="bar-fill" style="width:48%;"></div></div><div class="bar-pct">48%</div></div>
+    <div class="bar-row"><div class="bar-label">Skripsi</div><div class="bar-track"><div class="bar-fill" style="width:36%;"></div></div><div class="bar-pct">36%</div></div>
+    <div class="bar-row"><div class="bar-label">Hubungan percintaan</div><div class="bar-track"><div class="bar-fill" style="width:32%;"></div></div><div class="bar-pct">32%</div></div>
+    <div class="bar-row"><div class="bar-label">Masalah keuangan</div><div class="bar-track"><div class="bar-fill" style="width:28%;"></div></div><div class="bar-pct">28%</div></div>
+    <div class="bar-insight">→ Tugas kuliah menjadi sumber tekanan paling dominan.</div>
+  </div>
+
+  <div class="q-card">
+    <div class="q-title">📌 Cara Mengatasi Tekanan</div>
+    <div class="bar-row"><div class="bar-label">Bercerita ke teman</div><div class="bar-track"><div class="bar-fill" style="width:68%;"></div></div><div class="bar-pct">68%</div></div>
+    <div class="bar-row"><div class="bar-label">Bercerita ke keluarga</div><div class="bar-track"><div class="bar-fill" style="width:24%;"></div></div><div class="bar-pct">24%</div></div>
+    <div class="bar-row"><div class="bar-label">Memendam sendiri</div><div class="bar-track"><div class="bar-fill" style="width:8%;"></div></div><div class="bar-pct">8%</div></div>
+    <div class="bar-insight">→ Tidak semua mahasiswa memiliki coping mechanism yang sehat.</div>
+  </div>
+
+  <h3>Hasil Jawaban Terbuka (Kualitatif)</h3>
+  <p>Beberapa responden menyatakan bahwa hal yang membuat mereka lelah antara lain:</p>
+  <div class="quote-list">
+    <div class="quote-chip">"tugasnya banyak sekali"</div>
+    <div class="quote-chip">"skripsi dan tekanan waktu"</div>
+    <div class="quote-chip">"kerja sambil kuliah"</div>
+    <div class="quote-chip">"magang tidak dibayar + masalah finansial"</div>
+    <div class="quote-chip">"kurangnya motivasi belajar"</div>
+    <div class="quote-chip">"dosen kurang jelas dalam memberi tugas"</div>
+    <div class="quote-chip">"overthinking tentang masa depan"</div>
+  </div>
+
+  <div class="conclusion-box">
+    <h4>💬 Kesimpulan Survei</h4>
+    <p>Berdasarkan hasil survei, dapat disimpulkan bahwa masalah kesehatan mental mahasiswa ada dan cukup signifikan. Faktor utama yang memengaruhi adalah beban akademik, tekanan terhadap masa depan, serta kondisi eksternal seperti finansial dan lingkungan belajar. Selain itu, meskipun sebagian mahasiswa memiliki support system seperti teman dan keluarga, masih ada yang memilih memendam masalahnya sendiri. Hal ini menunjukkan perlunya perhatian lebih terhadap kesehatan mental mahasiswa, baik dari lingkungan kampus maupun individu itu sendiri.</p>
+  </div>
+
+  <!-- EMPATHY MATRIX -->
+  <div class="slabel" style="margin-top:2.5rem;">Riset Menggunakan Empati</div>
+  <h2>Empathy Matrix</h2>
+  <div class="div"></div>
+  <p>Tujuan dan Target UN: <strong>SDG 3 – Kehidupan Sehat dan Sejahtera</strong> — meningkatkan kesehatan mental dan kesejahteraan mahasiswa dalam menghadapi tekanan akademik.</p>
+
+  <div class="empathy-grid">
+    <div class="empathy-card feel">
+      <div class="empathy-label">😟 Feel</div>
+      <p>Mahasiswa merasa stres, cemas, dan lelah secara mental. Banyak dari mereka merasa terbebani oleh tugas kuliah, skripsi, serta tuntutan akademik yang terus berjalan. Selain itu, muncul juga perasaan overthinking terhadap masa depan dan tekanan dari lingkungan sekitar.</p>
+    </div>
+    <div class="empathy-card think">
+      <div class="empathy-label">💭 Think</div>
+      <p>Mahasiswa berpikir bahwa beban kuliah semakin berat dan sulit dikontrol. Mereka juga merasa takut tidak bisa lulus tepat waktu, tertinggal dari teman-teman, atau tidak memenuhi ekspektasi keluarga. Pikiran seperti ini membuat mereka semakin tertekan.</p>
+    </div>
+    <div class="empathy-card do">
+      <div class="empathy-label">🏃 Do</div>
+      <p>Sebagian mahasiswa mencoba mengatasi tekanan dengan bercerita kepada teman atau keluarga. Namun, ada juga yang memilih memendam sendiri. Beberapa mengalihkan stres dengan aktivitas lain seperti organisasi, tetapi tidak selalu menyelesaikan masalah utama.</p>
+    </div>
+    <div class="empathy-card hear">
+      <div class="empathy-label">👂 Hear</div>
+      <p>Mahasiswa sering mendengar tuntutan dari lingkungan sekitar: harapan keluarga untuk cepat lulus, tekanan untuk mendapatkan nilai bagus, serta perbandingan dengan teman sebaya. Hal ini secara tidak langsung menambah beban mental mereka.</p>
+    </div>
+  </div>
+
+  <div class="pain-gain">
+    <div class="pg-card pain">
+      <div class="pg-label">😣 Pain</div>
+      <ul>
+        <li>Tugas kuliah yang terlalu banyak</li>
+        <li>Tekanan skripsi dan deadline</li>
+        <li>Kurangnya kejelasan dari dosen</li>
+        <li>Masalah finansial (kerja sambil kuliah, magang tidak dibayar)</li>
+        <li>Kehilangan motivasi belajar</li>
+        <li>Sulit menjaga konsistensi belajar</li>
+      </ul>
+    </div>
+    <div class="pg-card gain">
+      <div class="pg-label">🌱 Gain</div>
+      <ul>
+        <li>Sistem pembelajaran yang lebih jelas dan terstruktur</li>
+        <li>Beban tugas yang lebih seimbang</li>
+        <li>Dukungan mental dari lingkungan sekitar</li>
+        <li>Akses ke bantuan profesional (konseling)</li>
+        <li>Kemampuan mengatur waktu dan menjaga keseimbangan hidup</li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="conclusion-box">
+    <h4>💬 Kesimpulan Empati</h4>
+    <p>Berdasarkan hasil riset, mahasiswa tidak hanya menghadapi tekanan akademik, tetapi juga tekanan psikologis yang berasal dari diri sendiri dan lingkungan sekitar. Oleh karena itu, diperlukan solusi yang tidak hanya berfokus pada akademik, tetapi juga pada dukungan kesehatan mental secara menyeluruh.</p>
+  </div>
+
+</div>
+
+<footer><p>🧠 <span>MindSDG3</span> · Empati & Penelitian · SDG 3</p></footer>
+</body>
+</html>
